@@ -12,9 +12,8 @@
       >
         <view class="day-content" :class="{ 'today-content': isToday(day.value) }">
           <text class="header-text" :class="{ 'today-text': isToday(day.value) }">
-            {{ day.name }}
+            {{ isToday(day.value) ? '今' : day.name }}
           </text>
-          <view v-if="isToday(day.value)" class="today-badge">今</view>
         </view>
       </view>
     </view>
@@ -151,12 +150,12 @@ $text-secondary: #64748b;
   background: var(--bg-body);
   border-bottom: 1px solid var(--border-card);
   flex-shrink: 0;
-  padding: 12rpx 0; /* Reduced vertical padding inside table header */
+  padding: 12rpx 8rpx; /* Align with table-body padding */
 }
 
 .time-header {
-  width: 90rpx;
-  min-width: 90rpx;
+  width: 110rpx;
+  min-width: 110rpx;
   height: 60rpx;
   display: flex;
   align-items: center;
@@ -186,36 +185,26 @@ $text-secondary: #64748b;
 }
 
 .today-content {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
-  transform: scale(1.05);
+  background: $accent-color;
+  box-shadow: 0 4rpx 12rpx rgba(59, 130, 246, 0.3);
+  width: 52rpx;
+  height: 52rpx;
+  border-radius: 50%;
+  flex: none;
 }
 
 .header-text {
   color: var(--text-sub);
-  font-size: 24rpx;
+  font-size: 26rpx;
   font-weight: 600;
   letter-spacing: 0.5px;
 }
 
 .today-text {
-  color: $accent-color;
+  color: #ffffff;
   font-weight: 800;
 }
 
-.today-badge {
-  position: absolute;
-  top: -12rpx;
-  right: -8rpx;
-  background: linear-gradient(135deg, #ef4444 0%, #f97316 100%);
-  color: white;
-  font-size: 16rpx;
-  font-weight: 800;
-  padding: 2rpx 8rpx;
-  border-radius: 20rpx;
-  box-shadow: 0 4rpx 10rpx rgba(239, 68, 68, 0.3);
-  z-index: 10;
-  border: 1px solid rgba(255,255,255,0.2);
-}
 
 /* Table Body */
 .table-body {
@@ -237,8 +226,8 @@ $text-secondary: #64748b;
 
 /* Soft Time Column */
 .time-cell {
-  width: 90rpx;
-  min-width: 90rpx;
+  width: 110rpx;
+  min-width: 110rpx;
   padding: 16rpx 4rpx;
   display: flex;
   flex-direction: column;
@@ -300,6 +289,11 @@ $text-secondary: #64748b;
   box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.15);
   backdrop-filter: saturate(150%) blur(10px);
+
+  .course-cell-today & {
+    box-shadow: 0 0 0 2rpx rgba(255, 255, 255, 0.8), 0 0 16rpx 4rpx rgba(59, 130, 246, 0.6);
+    border-color: rgba(255, 255, 255, 0.6);
+  }
 
   display: flex;
   align-items: center;
